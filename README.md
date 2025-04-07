@@ -22,21 +22,21 @@ Aplikasi ini adalah sebuah sistem untuk mengelola laporan keuangan harian. Pengg
 
 4. Jika Tambah Transaksi :
 
-   ![alt text](https://github.com/stevenlimya/LaporanKeuanganHarian/blob/main/image/3.png?raw=true)
+   ![alt text](https://github.com/stevenlimya/LatihanKeuanganHarian/blob/main/image/3.png)
 
 5. Jika Simpan PDF :
 
-   ![alt text](https://github.com/stevenlimya/LaporanKeuanganHarian/blob/main/image/4.png?raw=true)
+   ![alt text](https://github.com/stevenlimya/LatihanKeuanganHarian/blob/main/image/4.png)
 
-   ![alt text](https://github.com/stevenlimya/LaporanKeuanganHarian/blob/main/image/5.png?raw=true)
+   ![alt text](https://github.com/stevenlimya/LatihanKeuanganHarian/blob/main/image/5.png)
 
 6. Jika Hapus Baris Terakhir :
 
-   ![alt text](https://github.com/stevenlimya/LaporanKeuanganHarian/blob/main/image/6.png?raw=true)
+   ![alt text](https://github.com/stevenlimya/LatihanKeuanganHarian/blob/main/image/6.png)
 
 7. Jika Hapus Semua Data :
 
-   ![alt text](https://github.com/stevenlimya/LaporanKeuanganHarian/blob/main/image/7.png?raw=true)
+   ![alt text](https://github.com/stevenlimya/LatihanKeuanganHarian/blob/main/image/7.png)
 
 ## Fitur Utama
 
