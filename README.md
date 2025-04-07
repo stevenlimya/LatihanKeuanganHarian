@@ -14,11 +14,11 @@ Aplikasi ini adalah sebuah sistem untuk mengelola laporan keuangan harian. Pengg
 1. Buka link berikut untuk menuju halaman web : https://stevenlimya.github.io/LatihanKeuanganHarian/
 2. Isi data keuangan laporan harian berdasarkan kriteria :
 
-   ![alt text](https://github.com/stevenlimya/LaporanKeuanganHarian/blob/main/image/1.png?raw=true)
+   ![alt text](https://github.com/stevenlimya/LatihanKeuanganHarian/blob/main/image/1.png)
 
 3. Setelah mengisi data, anda dapat memilih beberapa pilihan :
 
-   ![alt text](https://github.com/stevenlimya/LaporanKeuanganHarian/blob/main/image/2.png?raw=true)
+   ![alt text](https://github.com/stevenlimya/LatihanKeuanganHarian/blob/main/image/2.png)
 
 4. Jika Tambah Transaksi :
 
