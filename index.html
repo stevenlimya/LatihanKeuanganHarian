@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Laporan Keuangan Harian</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body class="container py-4">
+    <h2 class="text-center text-success">LAPORAN KEUANGAN HARIAN</h2>
+    <p class="text-center text-muted">Mengelola keuangan Anda dengan lebih baik</p>
+
+    <div class="row text-center mb-4">
+      <div class="col-md-4">
+        <div class="p-3 bg-light border">Pemasukan: Rp <span id="totalPemasukan">0</span></div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-3 bg-light border">Pengeluaran: Rp <span id="totalPengeluaran">0</span></div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-3 bg-light border">Saldo Akhir: Rp <span id="saldoAkhir">0</span></div>
+      </div>
+    </div>
+
+    <h4 class="text-center">Tambah Transaksi</h4>
+    <div class="card p-4">
+      <div class="mb-3">
+        <label for="tanggal" class="form-label">Tanggal:</label>
+        <input type="date" id="tanggal" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label for="keterangan" class="form-label">Keterangan:</label>
+        <input type="text" id="keterangan" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label for="tipe" class="form-label">Tipe Transaksi:</label>
+        <select id="tipe" class="form-select">
+          <option value="Pemasukan">Pemasukan</option>
+          <option value="Pengeluaran">Pengeluaran</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="jumlah" class="form-label">Jumlah (Rp):</label>
+        <input type="number" id="jumlah" class="form-control" />
+      </div>
+      <div class="row gap-2">
+        <button class="btn btn-success col" onclick="">Tambah Transaksi</button>
+        <button class="btn btn-danger col" onclick="">Hapus Semua Data</button>
+        <button class="btn btn-primary col" onclick="">Simpan PDF</button>
+        <button class="btn btn-warning col" onclick="">Hapus Baris Terakhir</button>
+      </div>
+    </div>
+
+    <h4 class="mt-4">Data Keuangan</h4>
+    <table class="table table-bordered mt-2">
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Keterangan</th>
+          <th>Pemasukan (Rp)</th>
+          <th>Pengeluaran (Rp)</th>
+          <th>Saldo (Rp)</th>
+        </tr>
+      </thead>
+      <tbody id="dataKeuangan"></tbody>
+    </table>
+
+    <script>
+      // Inisialisasi variabel global
+      let totalPemasukan = 0;
+      let totalPengeluaran = 0;
+      const dataKeuangan = [];
+
+      // Fungsi untuk memperbarui total yang ditampilkan
+      function updateTotals() {
+        document.getElementById("totalPemasukan").innerText = totalPemasukan;
+        document.getElementById("totalPengeluaran").innerText = totalPengeluaran;
+        document.getElementById("saldoAkhir").innerText = totalPemasukan - totalPengeluaran;
+      }
+
+      // Fungsi untuk menambahkan transaksi
+      function tambahTransaksi() {
+        const tanggal = document.getElementById("tanggal").value;
+        const keterangan = document.getElementById("keterangan").value;
+        const tipe = document.getElementById("tipe").value;
+        const jumlah = parseInt(document.getElementById("jumlah").value);
+
+        if (!tanggal || !keterangan || isNaN(jumlah) || jumlah <= 0) {
+          alert("Silakan lengkapi semua data transaksi dengan benar.");
+          return;
+        }
+
+        let pemasukan = 0;
+        let pengeluaran = 0;
+
+        if (tipe === "Pemasukan") {
+          pemasukan = jumlah;
+          totalPemasukan += pemasukan;
+        } else {
+          pengeluaran = jumlah;
+          totalPengeluaran += pengeluaran;
+        }
+
+        const saldo = totalPemasukan - totalPengeluaran;
+        dataKeuangan.push({ tanggal, keterangan, pemasukan, pengeluaran, saldo });
+
+        renderDataKeuangan();
+        updateTotals();
+      }
+
+      // Fungsi untuk menampilkan data keuangan dalam tabel
+      function renderDataKeuangan() {
+        const tbody = document.getElementById("dataKeuangan");
+        tbody.innerHTML = "";
+
+        dataKeuangan.forEach((data) => {
+          const row = `<tr>
+            <td>${data.tanggal}</td>
+            <td>${data.keterangan}</td>
+            <td>${data.pemasukan}</td>
+            <td>${data.pengeluaran}</td>
+            <td>${data.saldo}</td>
+        </tr>`;
+          tbody.innerHTML += row;
+        });
+      }
+
+      // Fungsi menghapus semua data keuangan
+      function hapusSemuaTransaksi() {
+        totalPemasukan = 0;
+        totalPengeluaran = 0;
+        dataKeuangan.length = 0; // Clear array
+        renderDataKeuangan();
+        updateTotals();
+      }
+
+      // Fungsi menghapus data baris terakhir
+      function hapusBarisTerakhir() {
+        if (dataKeuangan.length > 0) {
+          const lastTransaction = dataKeuangan.pop();
+          totalPemasukan -= lastTransaction.pemasukan;
+          totalPengeluaran -= lastTransaction.pengeluaran;
+          renderDataKeuangan();
+          updateTotals();
+        } else {
+          alert("Tidak ada transaksi untuk dihapus.");
+        }
+      }
+
+      // Fungsi simpan PDF
+      function simpanPDF() {
+        const doc = new jsPDF();
+        doc.text("Laporan Keuangan Harian", 14, 16);
+        doc.text(`Pemasukan: Rp ${totalPemasukan}`, 14, 30);
+        doc.text(`Pengeluaran: Rp ${totalPengeluaran}`, 14, 40);
+        doc.text(`Saldo Akhir: Rp ${totalPemasukan - totalPengeluaran}`, 14, 50);
+
+        let y = 70;
+        dataKeuangan.forEach((data) => {
+          doc.text(`${data.tanggal} - ${data.keterangan} - Pemasukan: Rp ${data.pemasukan} - Pengeluaran: Rp ${data.pengeluaran} - Saldo: Rp ${data.saldo}`, 14, y);
+          y += 10;
+        });
+
+        doc.save("laporan_keuangan_harian.pdf");
+      }
+
+      // Lampirkan fungsi ke tombol
+      document.querySelector(".btn-success").onclick = tambahTransaksi;
+      document.querySelector(".btn-danger").onclick = hapusSemuaTransaksi;
+      document.querySelector(".btn-warning").onclick = hapusBarisTerakhir;
+      document.querySelector(".btn-primary").onclick = simpanPDF;
+
+      // Fungsi simpan PDF
+      function simpanPDF() {
+        const { jsPDF } = window.jspdf; // Mengambil jsPDF dari window
+        const doc = new jsPDF(); // Membuat instance baru dari jsPDF
+
+        // Menambahkan judul
+        doc.setFontSize(18);
+        doc.text("Laporan Keuangan Harian", 14, 16);
+
+        // Menambahkan total pemasukan, pengeluaran, dan saldo
+        doc.setFontSize(12);
+        doc.text(`Pemasukan: Rp ${totalPemasukan}`, 14, 30);
+        doc.text(`Pengeluaran: Rp ${totalPengeluaran}`, 14, 40);
+        doc.text(`Saldo Akhir: Rp ${totalPemasukan - totalPengeluaran}`, 14, 50);
+
+        // Menambahkan data transaksi
+        let y = 70; // Posisi Y untuk menulis data transaksi
+        dataKeuangan.forEach((data) => {
+          doc.text(`${data.tanggal} - ${data.keterangan} - Pemasukan: Rp ${data.pemasukan} - Pengeluaran: Rp ${data.pengeluaran} - Saldo: Rp ${data.saldo}`, 14, y);
+          y += 10; // Menambah jarak antar baris
+        });
+
+        // Menyimpan PDF dengan nama file
+        doc.save("laporan_keuangan_harian.pdf");
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
