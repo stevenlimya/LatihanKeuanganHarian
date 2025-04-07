@@ -11,7 +11,7 @@ Aplikasi ini adalah sebuah sistem untuk mengelola laporan keuangan harian. Pengg
 
 ## Instalasi
 
-1. Buka link berikut untuk menuju halaman web : file:///C:/Users/steve/OneDrive/Documents/GitHub/LatihanKeuanganHarian/index.html
+1. Buka link berikut untuk menuju halaman web : https://stevenlimya.github.io/LatihanKeuanganHarian/
 2. Isi data keuangan laporan harian berdasarkan kriteria :
 
    ![alt text](https://github.com/stevenlimya/LaporanKeuanganHarian/blob/main/image/1.png?raw=true)
